@@ -32,7 +32,7 @@ RedmineProject <- setRefClass(
       require(RJSONIO)
       stopifnot(is.character(apiKey), is.character(url), is.character(projectId))
       # Clean the url down to the base url
-      localUrl = regmatches(url, regexec("(https?:\\/{2}([a-z0-9]+\\.?){2,6}(:\\d+))+",  url))[[1]][1]
+      localUrl = regmatches(url, regexec("(http){1}s{0,1}:\\/{2}([a-z0-9]+\\.?){2,6}(:\\d+){0,1}",  url))[[1]][1]
       .self$apiKey = apiKey
       .self$url = localUrl
       .self$projectId = projectId
