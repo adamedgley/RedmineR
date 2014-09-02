@@ -208,6 +208,19 @@ RedmineProject <- setRefClass(
         verbose=verbose
         )
       return(ret)
+    },
+    show = function(){
+      cat("Project Name: ", .self$projectDetails$project$name, "\n")
+      cat("Project Identifier: ", .self$projectDetails$project$identifier, "\n")
+      cat("Description: \n", .self$projectDetails$project$description, "\n")
+      cat("Available Trackers: \n")
+      print(.self$availableTrackers, row.names=F)
+      cat("\n")
+      if (length(.self$issueCategories) > 0){
+        cat("Available issue categories:\n")
+        print(.self$issueCategories, row.names=F)
+      }
+      
     }
   )
 )
