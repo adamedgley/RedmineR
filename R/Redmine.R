@@ -1,3 +1,16 @@
+#' @name RedmineProject-class
+#' @title Redmine Project object
+#' @description Reference Class used to interact with a Redmine Project
+#' @field apiKey The API key for your user. Recommended to be the 
+#' @field url
+#' @field projectId
+#' @field projectDetails
+#' @field lastUpload
+#' @field availableTrackers
+#' @field issueCategories
+#' @field assignedUsers
+#' @exportClass RedmineProject
+#' @export RedmineProject
 RedmineProject <- setRefClass(
   Class="RedmineProject", 
   fields=list(apiKey="character", 
