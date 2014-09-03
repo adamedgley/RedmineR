@@ -1,16 +1,17 @@
 #' @name RedmineProject-class
 #' @title Redmine Project object
 #' @description Reference Class used to interact with a Redmine Project
-#' @field apiKey The API key for your user. Recommended to be the 
-#' @field url
-#' @field projectId
-#' @field projectDetails
-#' @field lastUpload
-#' @field availableTrackers
-#' @field issueCategories
-#' @field assignedUsers
+#' @field apiKey The API key for your user, retrieved from your account page. Protect this key, or consider a special system account with limited permissions.
+#' @field url The URL of your Redmine instance, including http:// or https://. At this stage, the package does not support Redmine addresses such as http://<domain>/redmine. Different ports are supported though.
+#' @field projectId The project identifier
+#' @field projectDetails List containing all information about the project
+#' @field lastUpload List containing the last upload details so it can be attached to an issue
+#' @field availableTrackers The trackers that are available in the project
+#' @field issueCategories The issue categories that are available in the project
+#' @field assignedUsers 
 #' @exportClass RedmineProject
 #' @export RedmineProject
+#' @import RCurl
 RedmineProject <- setRefClass(
   Class="RedmineProject", 
   fields=list(apiKey="character", 
@@ -24,9 +25,9 @@ RedmineProject <- setRefClass(
   ),
   methods=list(
     initialize=function(apiKey, url, projectId){
-      'Initialise the class
-      apiKey: Required character string. The API key obtained from your Redmine user profile. RESTful API must be enable by the Redmine administrator
-      url: Required character string. The URL for your Redmine installation. Note that this is stripped to a base url.
+      'Initialise the class \n
+      apiKey: Required character string. The API key obtained from your Redmine user profile. RESTful API must be enable by the Redmine administrator \n
+      url: Required character string. The URL for your Redmine installation. Note that this is stripped to a base url. \n
       projectId: Required character string. The Redmine project identifier.'
       require(RCurl)
       require(RJSONIO)
@@ -44,7 +45,7 @@ RedmineProject <- setRefClass(
       .self$availableTrackers = as.data.frame(do.call('rbind', .self$projectDetails$project$tracker))
       .self$issueCategories = as.data.frame(do.call('rbind', .self$projectDetails$project$issue_categories))
       # TODO: Extract member list
-      #memberUrl = paste0(.self$url, "/projects/", .self$projectId, "/memberships.json")
+      .self$fetchMembers()
       
     },
     getIssueList = function(params=list()){
@@ -220,7 +221,20 @@ RedmineProject <- setRefClass(
         cat("Available issue categories:\n")
         print(.self$issueCategories, row.names=F)
       }
+      cat("Member list:\n")
+      print(.self$assignedUsers)
       
+    },
+    fetchMembers = function(){
+      'Fetches member list for the project and update the object'
+      require(foreach)
+      x = fromJSON(getURL(paste0(.self$url, "/projects/", .self$projectId, "/memberships.json"),  httpheader=c('X-Redmine-API-Key'=.self$apiKey)))
+      users = as.data.frame(
+        foreach(s = x$memberships, .combine = rbind) %do%
+          do.call(cbind, s$user)
+      )
+      .self$assignedUsers = users
+      return(users)
     }
   )
 )
