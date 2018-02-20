@@ -66,3 +66,5 @@ myProject$updateIssue(
   attachLastUpload = T
   )
 ```
+
+[![Build Status](https://travis-ci.org/adamedgley/RedmineR.svg?branch=master)](https://travis-ci.org/adamedgley/RedmineR)
