@@ -1,4 +1,4 @@
-RedmineR
+RedmineR [![Build Status](https://travis-ci.org/adamedgley/RedmineR.svg?branch=master)](https://travis-ci.org/adamedgley/RedmineR)
 ========
 
 R package that communicates with Redmine, a project management tool, via the RESTful API. The primary motivation for this project was to facilitate automation of R processes, such as:
@@ -66,3 +66,4 @@ myProject$updateIssue(
   attachLastUpload = T
   )
 ```
+
