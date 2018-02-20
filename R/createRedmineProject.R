@@ -10,6 +10,13 @@
 #' @seealso http://www.redmine.org/projects/redmine/wiki/Rest_Projects#Creating-a-project
 #' @return Reference Class of type RedmineProject
 #' @importFrom RJSONIO toJSON
+#' @examples 
+#' \dontrun{
+#' library(RedmineR)
+#' library(config)
+#' cfg = config::get("redmine")
+#' rm = createRedmineProject("Test Project", cfg$api_key, cfg$url, "tpg", "Test project")
+#' }
 createRedmineProject = function(projectName,
                                 apiKey,
                                 url,

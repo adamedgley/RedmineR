@@ -14,6 +14,13 @@
 #' @import RCurl
 #' @import methods
 #' @importFrom methods new
+#' @examples 
+#' \dontrun{
+#' library(RedmineR)
+#' cfg = config::get("redmine")
+#' redmine = RedmineProject(cfg$apiKey, cfg$url, 'RMT')
+#' redmine$getIssueList()
+#' }
 RedmineProject <- setRefClass(
   Class="RedmineProject", 
   fields=list(apiKey="character", 

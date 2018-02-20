@@ -25,6 +25,14 @@ Reference Class of type RedmineProject
 Creates a new Redmine Project and returns the object relating to the object. If the project already exists, 
 it will return the project object without overwriting it.
 }
+\examples{
+\dontrun{
+library(RedmineR)
+library(config)
+cfg = config::get("redmine")
+rm = createRedmineProject("Test Project", cfg$api_key, cfg$url, "tpg", "Test project")
+}
+}
 \seealso{
 http://www.redmine.org/projects/redmine/wiki/Rest_Projects#Creating-a-project
 }

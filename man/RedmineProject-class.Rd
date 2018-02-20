@@ -79,3 +79,11 @@ filePath: Required valid path to file
 description: Optional character string describing the file}
 }}
 
+\examples{
+\dontrun{
+library(RedmineR)
+cfg = config::get("redmine")
+redmine = RedmineProject(cfg$apiKey, cfg$url, 'RMT')
+redmine$getIssueList()
+}
+}
