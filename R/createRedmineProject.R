@@ -7,8 +7,9 @@
 #' @param url URL for your Redmine server
 #' @param identifier Project identifier in Redmine. If not provided, will be a cleaned version of your project name
 #' @param description Optional description for your project
-#' @seealso \link{http://www.redmine.org/projects/redmine/wiki/Rest_Projects#Creating-a-project}
+#' @seealso http://www.redmine.org/projects/redmine/wiki/Rest_Projects#Creating-a-project
 #' @return Reference Class of type RedmineProject
+#' @importFrom RJSONIO toJSON
 createRedmineProject = function(projectName,
                                 apiKey,
                                 url,

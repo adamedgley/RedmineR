@@ -12,6 +12,8 @@
 #' @exportClass RedmineProject
 #' @export RedmineProject
 #' @import RCurl
+#' @import methods
+#' @importFrom methods new
 RedmineProject <- setRefClass(
   Class="RedmineProject", 
   fields=list(apiKey="character", 
